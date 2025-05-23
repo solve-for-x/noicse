@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[fun cool title]</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 3px solid #202020;
+            margin-top: 4em;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <script src="pixels.js"></script>
+        <script>
+            const ctx = canvas.getContext("2d");
+            const imageData = ctx.createImageData(canvas.width, canvas.height);
+
+            Module.onRuntimeInitialized = () => {
+                const seedRng = Module.cwrap("seed_rng", null, ["number"]);
+                const generateImageData = Module.cwrap("generate_image_data", "number", []);
+
+                // Use timestamp as seed
+                const now = Date.now();
+                seedRng(now);
+
+                const bufferPtr = generateImageData(); // pointer to RGBA data
+                // Copy WASM memory buffer into JS ImageData buffer
+                const wasmMemory = Module.HEAPU8.subarray(bufferPtr, bufferPtr + imageData.data.length);
+                imageData.data.set(wasmMemory);
+
+                ctx.putImageData(imageData, 0, 0);
+            };
+        </script>
+    </main>
+</body>
+
+</html>
