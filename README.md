@@ -1,6 +1,6 @@
 # noiCSe
 
-###### Random Noise Pixel Art Generated implemented using C compiled to WASM
+###### Random Noise Pixel Art Generator implemented using C compiled to WASM
 
 ### Compile with Emscripten
 ```bash
