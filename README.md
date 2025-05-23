@@ -1,8 +1,8 @@
 # noiCSe
----
+
 ###### Random Noise Pixel Art Generated implemented using C compiled to WASM
 
-### Compile with Emscription
+### Compile with Emscripten
 ```bash
 emcc pixels.c -Os -s WASM=1 \
   -s EXPORTED_FUNCTIONS='["_seed_rng", "_generate_image_data"]' \
