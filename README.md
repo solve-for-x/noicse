@@ -1,4 +1,4 @@
-# noiCSe
+# noicse
 
 ###### Random Noise Pixel Art Generator implemented using C compiled to WASM
 
